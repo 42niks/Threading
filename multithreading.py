@@ -15,7 +15,7 @@ class ThreadPool(object):
 	def map(self, target, list_of_arg_tuples):
 		if self.noOfThreads == 0:
 			print("noOfThreads is zero, continuing after making it 1.")
-			self.noOfThreads = 0
+			self.noOfThreads = 1
 
 		if len(list_of_arg_tuples) == 0:
 			return
@@ -28,11 +28,9 @@ class ThreadPool(object):
 				if not thread.isAlive():
 					aliveThreads.pop(i)
 
-			while len(aliveThreads)<noOfThreads and
+			while len(aliveThreads)<self.noOfThreads and
 				idx!=(len(list_of_arg_tuples)-1):
 				aliveThreads.append(th.Thread(target=target,
 					args=list_of_arg_tuples[idx]))
 				idx+=1
-				aliveThreads[-1].start()
-			
-			
+				aliveThreads[-1].start()	
